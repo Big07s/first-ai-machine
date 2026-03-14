@@ -43,7 +43,7 @@ while True:
     with tempfile.NamedTemporaryFile(suffix=".wav") as f:
         chunk_size = 1024
         total_bytes = 0
-        max_bytes = 6 * 16000 * 2  # 3 сек * 16kHz * 2 байта (16bit PCM)
+        max_bytes = 6 * 16000 * 2  # 6 сек * 16kHz * 2 байта 
         for chunk in r.iter_content(chunk_size=chunk_size):
             f.write(chunk)
             total_bytes += len(chunk)
