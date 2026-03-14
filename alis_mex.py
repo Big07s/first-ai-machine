@@ -15,8 +15,8 @@ messages = [{'role': 'system', 'content': 'Ты дружелюбный и веж
 os.environ["DISPLAY"] = ":0"
 def ans(messages):
     try:
-        # Получаем ответ от модели
-        res = ollama.chat(model='llama3:latest', messages=messages)
+        
+        res = ollama.chat(model='llama3:latest', messages=messages) # model = "your ai model"
         
        
      
@@ -28,7 +28,7 @@ def ans(messages):
         return "Произошла ошибка при обработке запроса."
 
 # URL потока с аудио
-URL = "http://192.168.10.72:8080/audio.wav"  
+URL = "http://YOUR_IP:8080/audio.wav"  
 try:
     r = requests.get(URL, stream=True, timeout=5)
     r.raise_for_status()
