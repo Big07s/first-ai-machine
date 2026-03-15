@@ -15,8 +15,8 @@ messages = [{'role': 'system', 'content': 'Ты дружелюбный и веж
 os.environ["DISPLAY"] = ":0"
 def ans(messages):
     try:
-        
-        res = ollama.chat(model='llama3:latest', messages=messages) # model = "your ai model"
+        # Получаем ответ от модели
+        res = ollama.chat(model='llama3:latest', messages=messages) # model = твоя модель
         
        
      
@@ -28,7 +28,7 @@ def ans(messages):
         return "Произошла ошибка при обработке запроса."
 
 # URL потока с аудио
-URL = "http://YOUR_IP:8080/audio.wav"  
+URL = "http://YOUR_IP:8080/audio.wav"  #ip webcam ip
 try:
     r = requests.get(URL, stream=True, timeout=5)
     r.raise_for_status()
@@ -36,14 +36,14 @@ except Exception as e:
     print("Не удалось получить звук с камеры:", e)
     exit()
 
-# Запись только первых 3 секунд
+
 while True:
     r = requests.get(URL, stream=True, timeout=5)
     r.raise_for_status()
     with tempfile.NamedTemporaryFile(suffix=".wav") as f:
         chunk_size = 1024
         total_bytes = 0
-        max_bytes = 6 * 16000 * 2  # 6 сек * 16kHz * 2 байта 
+        max_bytes = 6 * 16000 * 2  # 6 сек * 16kHz * 2 байта (16bit PCM)
         for chunk in r.iter_content(chunk_size=chunk_size):
             f.write(chunk)
             total_bytes += len(chunk)
@@ -99,6 +99,25 @@ while True:
             elif "Привет сделай скриншот" in text:
                 screen_num+=1
                 pyautogui.screenshot(f"screenshot{screen_num}.png")
+            
+
+            elif "Привет выключись" in text:
+                os.system("sudo shutdown now")
+
+            elif "Привет перезагрузись" in text:
+                os.system("sudo reboot")
+
+
+            elif "Привет дальше" in text:
+                os.system("nexttrack")
+
+            elif "Привет ещё" in text:
+                os.system("prevtrack")
+
+            elif "Привет стоп" in text or "Привет продолжай" in text:
+                pyautogui.press("playpause")
+
+
 
             
 
