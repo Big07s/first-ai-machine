@@ -16,7 +16,7 @@ os.environ["DISPLAY"] = ":0"
 def ans(messages):
     try:
         # Получаем ответ от модели
-        res = ollama.chat(model='llama3:latest', messages=messages) # model = твоя модель
+        res = ollama.chat(model='llama3:latest', messages=messages)  # model = твоя модель
         
        
      
@@ -67,12 +67,18 @@ while True:
 
                 webbrowser.open(f"https://{text}.com")
             
-            elif "Привет где я" in text:
-                z = os.system("ls")
+            elif "Привет что тут есть" in text:
+                z = os.system(f"ls {os.getcwd()}")
                 ttts = gTTS(text=z, lang='en')
                 tts.save("response.mp3")
                 os.system("mpv response.mp3")
-            
+
+            elif "Привет где я" in text:
+                z = os.getcwd()
+                ttts = gTTS(text=z, lang='en')
+                tts.save("response.mp3")
+                os.system("mpv response.mp3")
+
             elif "Привет создай тест" in text:
                 os.system("touch test.py")
 
